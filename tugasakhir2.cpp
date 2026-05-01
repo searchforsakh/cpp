@@ -269,7 +269,7 @@ int main(){
                 }
             }
 
-            // proses selesction sort - kurang cout
+            // proses selection sort - kurang cout
             // Mencari nilai terkecil Menukarnya dengan elemen di posisi awal Ulangi untuk posisi berikutnya
             // mencari nilai terkecil dari data lalu memindahkannya ke paling depan
             else if(pilihansort == 4){
