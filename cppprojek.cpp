@@ -267,8 +267,8 @@ int main() {
             quitmenu();
         }
 
-        else if (pilihan == 5) { // Menu Keluar
-            break; // Menghentikan perulangan while
+        else if (pilihan == 7) { 
+            break; 
         }
 
         else { // Jika user memasukkan angka selain 1-4
@@ -279,5 +279,5 @@ int main() {
     }
 
     cout << "\nTerima kasih. Program selesai." << endl;
-    return 0; // Menandakan program berakhir dengan sukses
+    return 0; 
 }
