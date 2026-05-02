@@ -109,7 +109,7 @@ void updateWarga(Warga data[], int n, string target) {
 }
 
 // Fungsi untuk menghapus data warga dari array berdasarkan NIK
-void hapusWarga(Warga data[], int &n, string target) { 
+void hapusWarga(Warga data[], int &n, string target) { // Dengan &n, jumlah data di seluruh program selalu sinkron.
     int indexHapus = -1; // Variabel penampung posisi data (default -1 = belum ketemu)
 
     // 1. Cari posisi index data yang akan dihapus
