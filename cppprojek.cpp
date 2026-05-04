@@ -13,36 +13,75 @@ struct Warga {
 };
 
 // 2. Fungsi Sorting menggunakan algoritma Bubble Sort
-void urutkanNIK(Warga data[], int n) { // function of array
-    for (int i = 0; i < n - 1; i++) { // Loop untuk tahap pengurutan
-        for (int j = 0; j < n - i - 1; j++) { // Loop untuk membandingkan data bertetangga
-            if (data[j].nIK > data[j + 1].nIK) { // Jika NIK kiri lebih besar dari kanan, maka tukar
-                Warga temp = data[j]; // Simpan data sementara
-                data[j] = data[j + 1]; // Geser data terkecil ke kiri
-                data[j + 1] = temp; // Pindahkan data terbesar ke kanan
+// Fungsi untuk mengurutkan data warga berdasarkan NIK menggunakan algoritma Bubble Sort
+void urutkanNIK(Warga data[], int n) { // data[]: array objek Warga, n: jumlah total data warga
+    cout << "\n=== DESK CHECK SORTING (BUBBLE SORT) ===" << endl;
+
+    // Loop luar: Mengatur jumlah iterasi/pass (sebanyak n-1 kali)
+    for (int i = 0; i < n - 1; i++) { // i: Variabel kontrol loop luar untuk menentukan jumlah putaran (pass)
+        cout << "Iterasi ke-" << i + 1 << ":" << endl;
+
+        // Loop dalam: Melakukan perbandingan elemen berdampingan
+        // n-i-1 digunakan agar elemen yang sudah "paling besar" di ujung tidak perlu dicek lagi
+        for (int j = 0; j < n - i - 1; j++) {// j: Variabel kontrol loop dalam untuk membandingkan indeks yang berdampingan
+            // Log Desk Check: Menampilkan elemen yang sedang dibandingkan
+            cout << "  > Membandingkan NIK[" << data[j].nIK << "] dengan NIK[" << data[j+1].nIK << "]"; 
+            
+            // Kondisi: Jika elemen kiri lebih besar dari elemen kanan, maka tukar (Ascending)
+            if (data[j].nIK > data[j + 1].nIK) { // nIK: Variabel dalam struct Warga yang menjadi acuan pengurutan
+                cout << " -> (TUKAR POSISI)" << endl;
+                
+                // Proses pertukaran (Swapping) menggunakan variabel sementara (temp)
+                Warga temp = data[j]; // temp: Variabel sementara untuk menyimpan data agar tidak hilang saat proses tukar (swap)
+                data[j] = data[j + 1]; // Menggeser data yang lebih kecil ke posisi kiri
+                data[j + 1] = temp; // Memindahkan data dari temp ke posisi kanan
+            } else {
+                // Jika elemen kiri sudah lebih kecil atau sama dengan, posisi tetap
+                cout << " -> (TETAP)" << endl;
             }
         }
     }
+    cout << "=== SELESAI SORTING ===\n" << endl;
 }
 
 // 3. Fungsi Searching menggunakan algoritma Linear Search (mencari satu per satu)
-void cariWarga(Warga data[], int n, string target) {
-    bool ditemukan = false; // Penanda apakah data ditemukan atau tidak
-    for (int i = 0; i < n; i++) { // Loop menelusuri seluruh data di array
-        if (data[i].nIK == target) { // Jika NIK yang dicari cocok dengan data di sistem
+// Fungsi untuk mencari data warga tertentu berdasarkan input NIK menggunakan Linear Search
+void cariWarga(Warga data[], int n, string target) { // target: Variabel yang menampung NIK yang ingin dicari (input dari user)
+    bool ditemukan = false; // Flag untuk menandai apakah data sudah ditemukan
+    
+    cout << "\n=== DESK CHECK SEARCHING (LINEAR SEARCH) ===" << endl;
+    cout << "Mencari NIK: " << target << endl;
+
+    // Loop untuk menelusuri setiap indeks dalam array data warga
+    for (int i = 0; i < n; i++) { // i: Indeks posisi data yang sedang diperiksa saat ini (mulai dari 0 sampai n-1)
+        // Log Desk Check: Menunjukkan progres pemeriksaan pada indeks saat ini
+        cout << "Langkah " << i + 1 << ": Memeriksa indeks ke-" << i << " (NIK: " << data[i].nIK << ")";
+        
+        // Membandingkan NIK pada indeks saat ini dengan NIK yang dicari (target)
+        if (data[i].nIK == target) { // Membandingkan apakah NIK pada indeks ke-i sama dengan target
+            cout << " -> Benar" << endl;
+            
+            // Jika ditemukan, tampilkan detail informasi warga tersebut
             cout << "\n--- HASIL VERIFIKASI DATA ---" << endl;
             cout << "NIK         : " << data[i].nIK << endl;
             cout << "Nama        : " << data[i].nama << endl;
             cout << "Pendapatan  : Rp." << data[i].pendapatan << endl;
             cout << "Tanggungan  : " << data[i].tanggungan << " Orang" << endl;
             cout << "Status      : " << data[i].status << endl;
-            ditemukan = true; // Set penanda menjadi benar
-            break; // Hentikan pencarian karena data sudah didapat
+            
+            ditemukan = true; 
+            break;         
+        } else {
+            // Jika tidak cocok, lanjut ke iterasi berikutnya
+            cout << " -> Salah" << endl;
         }
     }
-    if (!ditemukan) { // Jika sampai akhir loop data tidak ada yang cocok
+    
+    // Validasi akhir: Jika seluruh array sudah diperiksa dan ditemukan tetap false
+    if (!ditemukan) {
         cout << "\nData NIK [" << target << "] tidak terdaftar dalam sistem." << endl;
     }
+    cout << "=== SELESAI SEARCHING ===\n" << endl;
 }
 
 string tentukanKelayakan(long long pendapatan, int tanggungan) { // string = untuk menghasilkan nilai return baru
