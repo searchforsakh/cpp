@@ -123,7 +123,7 @@ void tampilkanStatistik(Warga data[], int n) {
     cout << "Rata-rata Tanggungan   : " << (n > 0 ? (float)totalTanggungan / n : 0) << " orang/warga" << endl;
 }
 
-// function update warga
+// function update warga *deskcheck nya sama seperti linear search
 void updateWarga(Warga data[], int n, string target) {
     bool ditemukan = false; 
     for (int i = 0; i < n; i++) {
@@ -147,31 +147,41 @@ void updateWarga(Warga data[], int n, string target) {
     if (!ditemukan) cout << "\nNIK " << target << " tidak ditemukan." << endl;
 }
 
-// Fungsi untuk menghapus data warga dari array berdasarkan NIK
-void hapusWarga(Warga data[], int &n, string target) { // Dengan &n, jumlah data di seluruh program selalu sinkron.
-    int indexHapus = -1; // Variabel penampung posisi data (default -1 = belum ketemu)
+// Fungsi untuk menghapus data warga fitur Desk Check 
+void hapusWarga(Warga data[], int &n, string target) {
+    int indexHapus = -1; // indexHapus: Menampung posisi data yang akan dibuang
 
-    // 1. Cari posisi index data yang akan dihapus
-    for (int i = 0; i < n; i++) { // Melakukan perulangan sebanyak jumlah data yang ada
-        if (data[i].nIK == target) { // Cek apakah NIK pada index ke-i sama dengan NIK yang dicari
-            indexHapus = i; // Jika cocok, simpan posisi index-nya
+    cout << "\nDESK CHECK PENGHAPUSAN" << endl;
+
+    // 1. PROSES PENCARIAN (Linear Search)
+    for (int i = 0; i < n; i++) {
+        cout << "Memeriksa indeks ke-" << i << " (NIK: " << data[i].nIK << ")";
+        if (data[i].nIK == target) {
+            indexHapus = i; // Menemukan lokasi data
+            cout << " -> [DITEMUKAN]" << endl;
             break;
         }
+        cout << " -> [BUKAN]" << endl;
     }
 
-    // 2. Jika ketemu (indexHapus bukan lagi -1), lakukan pergeseran (Shifting)
-    if (indexHapus != -1) { 
-        // Melakukan perulangan mulai dari posisi data yang dihapus hingga data terakhir
-        for (int i = indexHapus; i < n - 1; i++) { 
-            data[i] = data[i + 1]; // Mengambil data di depannya untuk menimpa data saat ini (geser kiri)
+    // 2. PROSES PERGESERAN (Shifting)
+    if (indexHapus != -1) {
+        cout << "\n--- Proses Pergeseran Data ---" << endl;
+        cout << "Menghapus: " << data[indexHapus].nama << endl;
+
+        // Loop untuk menggeser data di depan ke posisi belakang
+        for (int i = indexHapus; i < n - 1; i++) {
+            cout << "Mengambil data [" << data[i+1].nama 
+                 << "] untuk menimpa posisi indeks ke-" << i << endl;
+            
+            data[i] = data[i + 1]; // Menimpa data saat ini dengan data di depannya
         }
-        
-        n--; // Mengurangi jumlah total data (n) karena satu data telah dibuang dari sistem
-        cout << "\nData NIK " << target << " berhasil dihapus." << endl; 
-    } else { 
-        // Jika indexHapus tetap -1 setelah loop selesai
-        cout << "\nNIK " << target << " tidak ditemukan." << endl;
+
+        n--; // n: Mengurangi jumlah total warga karena satu data telah dibuang
+    } else {
+        cout << "\nStatus: NIK " << target << " tidak ditemukan, tidak ada data yang dihapus." << endl;
     }
+    cout << "\nSELESAI PENGHAPUSAN" << endl;
 }
 
 //function quit
